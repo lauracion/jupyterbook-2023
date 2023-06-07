@@ -10,7 +10,7 @@ kernelspec:
 ---
 
 # Example Markdown page
-The source for this page can be [found here](https://github.com/agu-openscience-innovations/jupyterbook-2023/example/example.md)
+The source for this page can be [found here](https://github.com/agu-openscience-innovations/jupyterbook-2023/blob/main/example/example.md?plain=1)
 
 This is some example text. Text can be **bold** or *italic*. You can add [links](https://github.com)
 
