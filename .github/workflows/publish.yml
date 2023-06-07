@@ -1,8 +1,4 @@
 name: deploy-book
-permissions:
-  pull-requests: write
-  issues: write
-  repository-projects: write
 # Only run this when the master branch changes
 on:
   push:
@@ -14,6 +10,8 @@ on:
     #
     # paths:
     # - some-subfolder/**
+
+permissions: write-all
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
