@@ -1,2 +1,2 @@
 # AGU Open Science Success Stories Jupyterbook Repo
-More info to come soon!
+This site can be viewed at https://agu-openscience-innovations.github.io/jupyterbook-2023
