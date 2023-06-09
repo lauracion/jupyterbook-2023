@@ -40,3 +40,6 @@ print(x)
 
 plt.plot(x)
 ```
+
+You can add images
+![lorenz](./images/lorenz.gif)
