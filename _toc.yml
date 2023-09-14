@@ -4,6 +4,9 @@
 format: jb-book
 root: intro
 parts:
+  - caption: Logistics
+    chapters:
+    - file: schedule
   - caption: Guides
     chapters: 
     - file: example/example
