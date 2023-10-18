@@ -3,12 +3,19 @@
 
 format: jb-book
 root: intro
+
 parts:
   - caption: Logistics
     chapters:
-    - file: schedule
-  - caption: Guides
-    chapters: 
-    - file: example/example
-    sections:
-      - file: example/example_notebook
+    - file: schedule.md
+  - caption: Content
+    chapters:
+      - file: speaker_content/01-morning-oral-session/00-overview.md
+        sections:
+          - file: speaker_content/01-morning-oral-session/01-test.md
+  - caption: Jupyterbook How-To
+    chapters:
+    - file: example/example.md
+    - file: example/example_notebook.ipynb
+    - file: markdown.md
+    - file: markdown-notebooks.md
