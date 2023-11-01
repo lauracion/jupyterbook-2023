@@ -1,0 +1,1 @@
+A place to put files for pages in its parent directory
