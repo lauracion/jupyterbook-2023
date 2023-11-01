@@ -3,16 +3,26 @@
 
 format: jb-book
 root: intro
-
 parts:
   - caption: Logistics
     chapters:
     - file: schedule.md
   - caption: Content
+    maxdepth: 4
     chapters:
       - file: speaker_content/01-morning-oral-session/00-overview.md
         sections:
-          - file: speaker_content/01-morning-oral-session/01-test.md
+          - glob  : speaker_content/01-morning-oral-session/*
+      - file: speaker_content/02-panel-discussion/00-overview.md
+        sections:
+          - glob: speaker_content/02-panel-discussion/*
+      - file: speaker_content/03-afternoon-oral-session/00-overview.md
+        sections:
+          - glob: speaker_content/03-afternoon-oral-session/*
+      - file: speaker_content/04-workshops/00-overview.md
+        sections:
+          - glob: speaker_content/04-workshops/*
+
   - caption: Jupyterbook How-To
     chapters:
     - file: example/example.md

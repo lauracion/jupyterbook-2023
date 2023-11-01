@@ -10,6 +10,8 @@ kernelspec:
 ---
 # 02 - 	Open Ecosystem Service Science for Policy and Finance Decisions: Lessons Learned from Developing the Natural Capital Project’s InVEST Software Suite
 
+Presented by: Lisa Mandle
+
 ## Abstract
 The contributions of Earth’s natural systems to human well-being and livelihoods has long been undervalued in decision-making, leading to choices that undermine sustainable development. Scientific understanding of ecosystem services, the benefits nature provides to people and the economy, has grown rapidly, but still remains outside many policy and financial decision-making processes.
 

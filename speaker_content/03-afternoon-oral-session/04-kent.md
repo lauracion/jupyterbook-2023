@@ -10,6 +10,8 @@ kernelspec:
 ---
 # 03 - Project Pythia: Empowering Geoscientists through Open-Source, Open-Science Collaboration
 
+Presented by: Julia Kent
+
 ## Abstract
 Open science enables inclusive, accessible, and reproducible research, fostering a stronger global scientific community. Project Pythia (https://projectpythia.org/) is a thriving open-source Python learning resource that is the flagship educational initiative of the Pangeo community.
 

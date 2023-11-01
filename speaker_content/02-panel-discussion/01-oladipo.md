@@ -10,6 +10,8 @@ kernelspec:
 ---
 # 01 - Role of Open Science in Fostering Progress for Early Career: An Introspection (Invited) 
 
+Presented by: Mumin Oladipo
+
 ## Abstract 
 Open science provides access to resources and helps promote inclusiveness in our diverse world. Open science is an important tool towards equity, providing more access to scientific contributions across the world. Open science has helped to improve inclusiveness, accelerating the career path of early careers.
 

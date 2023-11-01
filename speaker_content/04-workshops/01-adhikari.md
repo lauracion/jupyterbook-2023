@@ -10,6 +10,8 @@ kernelspec:
 ---
 # 01 - VEDA: Empowering Open Science for Earth Observation Data (Invited)
 
+Presented by: Slesa Adhikari
+
 ## Abstract
 Open science has emerged as a transformative approach to scientific research, fostering inclusivity, accessibility, and reproducibility. Developed by NASA, Visualization, Exploration and Data Analysis (VEDA) stands as a powerful open science platform, aiming to facilitate discovery, interactive visualization, and Earth observation data analysis.
 

@@ -10,6 +10,8 @@ kernelspec:
 ---
 # 04 - 	Introducing the Africa PID Alliance Digital Object Resolution (Invited)
 
+Presented by: Joy Owango
+
 ## Abstract 
 Persistent Identifiers are the pillars of an interoperable, persistent and reliable Open Research Infrastructure. This is the reason why a lot of countries/regions and organizations took the initiative to contribute to this network and help promote the use of PIDs through their academic and publishing ecosystems.
 The objective of this presentation is to present the structure and the feasibility, implementation and manageability of the project. A survey on the African continental level will shed light on or provide insights on the need of a DOI Registration Agency tailored to the continental context. One of the innovations that this agency will bring is a specific prefix for Africa that will provide;

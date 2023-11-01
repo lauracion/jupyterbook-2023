@@ -9,7 +9,9 @@ kernelspec:
     name: python3
 ---
 # 02 - 	Embracing Diversity in Science: Perspectives from Indigenous Communities and Open Science (Invited)
- 
+
+Presented by: Ciarra Greene
+
 ## Abstract 
 The presentation focuses on the critical intersection of open science principles with Indigenous communities, cultures, and values, data sovereignty, and the integration of traditional ecological knowledge (TEK) into broader knowledge systems relevant. By considering both beneficial and challenging aspects of open science practices, we can foster greater collaboration between Indigenous communities, higher education institutions, and state/federal agencies.
 

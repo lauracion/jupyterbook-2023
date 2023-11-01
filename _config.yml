@@ -1,8 +1,8 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: Open Science Success Stories
-author: Lucas Sterzinger and Paige Martin
+title: Voices from the Global Open Science Community
+author: 
 logo: logo.png
 
 # Force re-execution of notebooks on each build.
