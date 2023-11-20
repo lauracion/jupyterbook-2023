@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 03 - 	Latin American lessons learned on how to do outstanding global open source science (Invited) 
 
 Presented by: Laura Ación

@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 03 - Community building across government and responding to researcher needs with the NASA Openscapes framework
 
 Presented by: Aaron M Friesz

@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # Afternoon Oral Session
 [INV51D-09 Geomorphica: The Diamond Open-Access Journal for Geomorphology](./01-lai.md) - Larry Syu-Heng Lai
 

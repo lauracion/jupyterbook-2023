@@ -25,6 +25,7 @@ parts:
 
   - caption: Jupyterbook How-To
     chapters:
+    - file: contributing.md
     - file: example/example.md
     - file: example/example_notebook.ipynb
     - file: markdown.md
