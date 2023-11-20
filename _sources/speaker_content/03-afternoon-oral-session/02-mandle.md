@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 02 - 	Open Ecosystem Service Science for Policy and Finance Decisions: Lessons Learned from Developing the Natural Capital Project’s InVEST Software Suite
 
 Presented by: Lisa Mandle

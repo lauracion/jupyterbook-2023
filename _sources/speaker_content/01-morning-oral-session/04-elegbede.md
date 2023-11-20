@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 04 - 	Advancing Open Science in Africa: Bridging Gaps, Enabling Progress through Transformative Solutions
 
 Presented by: Isa Olalekan Elegbede

@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 03 - 	Open Urban Science: Instrument Cookbooks for All
 
 Presented by: Maxwell Grover

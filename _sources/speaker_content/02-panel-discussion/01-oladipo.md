@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 01 - Role of Open Science in Fostering Progress for Early Career: An Introspection (Invited) 
 
 Presented by: Mumin Oladipo

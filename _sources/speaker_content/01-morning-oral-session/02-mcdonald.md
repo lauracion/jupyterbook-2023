@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 02 -	Implementing Reproducible Environmental Data Science with Open Science: Lessons from the 1st Climate Informatics Reproducibility Challenge
 
 Presented by: Andrew McDonald

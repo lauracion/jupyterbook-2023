@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 01 - Geomorphica: The Diamond Open-Access Journal for Geomorphology
 
 Presented by: Larry Syu-Heng Lai

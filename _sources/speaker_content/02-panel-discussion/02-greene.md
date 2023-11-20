@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 02 - 	Embracing Diversity in Science: Perspectives from Indigenous Communities and Open Science (Invited)
 
 Presented by: Ciarra Greene
