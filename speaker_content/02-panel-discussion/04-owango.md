@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 04 - 	Introducing the Africa PID Alliance Digital Object Resolution (Invited)
 
 Presented by: Joy Owango

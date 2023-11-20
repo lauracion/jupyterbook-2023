@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 
 # Example Markdown page
 The source for this page can be [found here](https://github.com/agu-openscience-innovations/jupyterbook-2023/blob/main/example/example.md?plain=1)

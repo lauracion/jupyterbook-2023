@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # Panel Discussion
 
 [INV51D-05 Role of Open Science in Fostering Progress for Early Career: An Introspection](./01-oladipo.md) - Mumin Oladipo (Invited)

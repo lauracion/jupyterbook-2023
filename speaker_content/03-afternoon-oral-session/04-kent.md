@@ -1,13 +1,3 @@
----
-jupytext:
-    text_representation:
-        extension: .md
-        format_name: myst
-kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
----
 # 03 - Project Pythia: Empowering Geoscientists through Open-Source, Open-Science Collaboration
 
 Presented by: Julia Kent
