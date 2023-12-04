@@ -1,7 +1,6 @@
 # 01 - 	On a QUEST (Query, Unify, Explore SpatioTemporal) to Accelerate ICESat-2 Applications in Ocean Science via icepyx
 
-Authors: Jessica Scheick, Kelsey Bisson, Zachary Fair, Romina Piunno,\
-Nicole Abib, Alessandro Di Bella, Rachel Tilling\
+Authors: Jessica Scheick, Kelsey Bisson, Zachary Fair, Romina Piunno, Nicole Abib, Alessandro Di Bella, Rachel Tilling\
 Presented by: Zachary Fair
 
 ## Abstract 
@@ -272,3 +271,6 @@ plt.tight_layout()
 ![fourpanel](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/four_panel_plot.PNG)
 
 ## Wrap-Up
+In this notebook, we demonstrated that, thanks to icepyx and QUEST, it is easy to access ICESat-2 and icepyx data simultaneously. Because ICESat-2 and Argo both have the capabilities to offer near real-time, vertically-resolved subsurface information of the world's oceans, The QUEST module will be helpful for the continued monitoring of ocean biology and biogeochemistry.
+
+Although we highlight Argo data in this presentation, QUEST has a framework designed to accept other datasets to compliment ICESat-2. We hope to expand the capabilities of QUEST with the help of the broader scientific community.
