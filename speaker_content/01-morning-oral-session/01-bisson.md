@@ -72,7 +72,7 @@ short_name = 'ATL03'
 reg_a.add_icesat2(product=short_name)
 print(reg_a)
 ```
-![query2](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/quest_query2.png)
+![query2](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/quest_query2.PNG)
 
 We can now see the available ICESat-2 files over our region of interest.
 
