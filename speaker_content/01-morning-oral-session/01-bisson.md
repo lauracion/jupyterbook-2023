@@ -1,6 +1,7 @@
 # 01 - 	On a QUEST (Query, Unify, Explore SpatioTemporal) to Accelerate ICESat-2 Applications in Ocean Science via icepyx
 
-Authors: Jessica Scheick, Kelsey Bisson, Zachary Fair, Romina Piunno, Nicole Abib, Alessandro Di Bella, Rachel Tilling
+Authors: Jessica Scheick, Kelsey Bisson, Zachary Fair, Romina Piunno,\
+Nicole Abib, Alessandro Di Bella, Rachel Tilling\
 Presented by: Zachary Fair
 
 ## Abstract 
@@ -62,19 +63,24 @@ print(reg_a)
 We have defined our spatial and temporal domains, now we need to add datasets to our query!
 
 ### Getting the ICESat-2 data
-If we want to extract information about the water column, the **ICESat-2 ATL03 product** is likely the desired choice.
+If we want to extract information about the water column, the **ICESat-2 ATL03 product** is likely the desired choice.\
+
+Normally, the query would return 13 ICESat-2 files for downloading. This may be potentially useful for a regular user, but it is excessive for this example. Hence, we specify a reference ground track (RGT, `track`) below.
 
 ```python
 # ICESat-2 product
 short_name = 'ATL03'
 
+# Reference ground track (RGT)
+track = '411'
+
 # Add ICESat-2 to QUEST query
-reg_a.add_icesat2(product=short_name)
+reg_a.add_icesat2(product=short_name, tracks=track)
 print(reg_a)
 ```
 ![query2](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/quest_query2.PNG)
 
-We can now see the available ICESat-2 files over our region of interest.
+We can now see the available ICESat-2 file over our region of interest.
 
 ```python
 pprint(reg_a.datasets['icesat2'].avail_granules(ids=True))
