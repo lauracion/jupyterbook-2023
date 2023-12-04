@@ -57,7 +57,7 @@ reg_a = ipx.Quest(spatial_extent=spatial_extent, date_range=date_range)
 
 print(reg_a)
 ```
-![query](https://raw.githubusercontent.com/zachghiaccio/jupyterbook-2023/quest-presentation/speaker-content/01-morning-session/files/bisson/quest_query.png)
+![query](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/quest_query.PNG)
 
 We have defined our spatial and temporal domains, now we need to add datasets to our query!
 
