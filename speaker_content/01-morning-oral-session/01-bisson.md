@@ -19,9 +19,13 @@ The QUEST (Query, Unify, Explore SpatioTemporal) Python software library aims to
 ### ICESat-2 Basics
 
 ### Argo Basics
+![argocycle](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/float_cycle_1-1184x654.png)
+
 Argo floats are untethered sensors that bob in the ocean to collect data as they are carried by ocean currents. Argo floats can control their own buoyancy but not their trajectory. They primarily measure salinity, temperature, and biological activity within the Earth's oceans, though some Argo floats also provide optical measurements (light attenuation at 490 nm, particulate backscatter at 700 nm) to validate satellite measurements.
 
 A portion of Argo floats are situated near the poles, and they sometimes drift underneath sea ice. Ocean conditions beneath sea ice are not well understood, so polar Argo floats provide useful data for the oceanographic community.
+
+![argoice](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/Thomas-JessinLOV-846x620.png)
 
 ## QUEST Example
 ```python
