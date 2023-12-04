@@ -57,7 +57,7 @@ reg_a = ipx.Quest(spatial_extent=spatial_extent, date_range=date_range)
 
 print(reg_a)
 ```
-![query](../files/bisson/quest_query.png)
+![query](/jupyterbook-2023/speaker-content/01-morning-session/files/bisson/quest_query.png)
 
 We have defined our spatial and temporal domains, now we need to add datasets to our query!
 
@@ -79,7 +79,7 @@ We can now see the available ICESat-2 files over our region of interest.
 ```python
 pprint(reg_a.datasets['icesat2'].avail_granules(ids=True))
 ```
-![is2list](../files/bisson/is2_file_list.png)
+![is2list](/jupyterbook-2023/speaker-content/01-morning-session/files/bisson/is2_file_list.png)
 
 For more information on functions that can be used for ICESat-2, users are referred to the [icepyx ReadtheDocs](https://icepyx.readthedocs.io/en/latest/)
 
@@ -109,7 +109,7 @@ Finally, let's add Argo to our wanted datasets!
 ```python
 reg_a.datasets['argo'].search_data()
 ```
-![argocount](../files/bisson/argo_file_count.png)
+![argocount](/jupyterbook-2023/speaker-content/01-morning-session/files/bisson/argo_file_count.png)
 
 ### Downloading the data
 We can now access data for both ICESat-2 and Argo! The below function will download both datasets at once.
@@ -151,7 +151,7 @@ reader.vars.append(beam_list=['gt2l'],
 # Load ICESat-2 data into Xarray
 ds = reader.load()
 ```
-![is2xarray](../files/bisson/is2_xarray_structure.png)
+![is2xarray](/jupyterbook-2023/speaker-content/01-morning-session/files/bisson/is2_xarray_structure.png)
 
 To make the data easier to plot, let's convert the data into a Pandas DataFrame, just like Argo.
 
@@ -186,7 +186,7 @@ m = is2_gdf[is2_gdf['signal_conf_ph']>=3].explore(column='rgt',
 # Add Argo float locations to map
 argo_gdf.explore(m=m, name='Argo', marker_kwds={'radius': 6}, color='red')
 ```
-![exploremap](../files/bisson/explore_map.png)
+![exploremap](/jupyterbook-2023/speaker-content/01-morning-session/files/bisson/explore_map.png)
 
 While we're at it, let's check out the temperature/pressure profiles for all of the Argo floats.
 
@@ -201,7 +201,7 @@ plt.ylabel('Pressure [hPa]')
 plt.ylim([750, -10])
 plt.tight_layout()
 ```
-![argoprofile](../files/bisson/argo_vertical_profile.png)
+![argoprofile](/jupyterbook-2023/speaker-content/01-morning-session/files/bisson/argo_vertical_profile.png)
 
 Lastly, let's look at some near-coincident ICESat-2 and Argo data in a multi-panel plot.
 
@@ -263,6 +263,6 @@ ax4.set_ylabel('Argo Pressure', fontsize=16)
 
 plt.tight_layout()
 ```
-![fourpanel](../files/bisson/four_panel_plot.png)
+![fourpanel](/jupyterbook-2023/speaker-content/01-morning-session/files/bisson/four_panel_plot.png)
 
 ## Wrap-Up
