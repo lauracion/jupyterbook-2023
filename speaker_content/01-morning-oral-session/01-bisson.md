@@ -45,7 +45,7 @@ To start looking for data, we begin by defining our Quest object. We provide the
 * `spatial_extent`: Data is constrained to a bounding box over the Pacific Ocean.
 * `date_range`: Only grab data from April 12-26, 2022.
 
-```{code-cell} ipython3
+```python
 # Spatial bounds, given as SW/NE corners
 spatial_extent = [-154, 30, -143, 37]
 
@@ -57,13 +57,14 @@ reg_a = ipx.Quest(spatial_extent=spatial_extent, date_range=date_range)
 
 print(reg_a)
 ```
+![query](../files/bisson/quest_query.png)
 
 We have defined our spatial and temporal domains, now we need to add datasets to our query!
 
 ### Getting the ICESat-2 data
 If we want to extract information about the water column, the **ICESat-2 ATL03 product** is likely the desired choice.
 
-```{code-cell} ipython3
+```python
 # ICESat-2 product
 short_name = 'ATL03'
 
@@ -71,12 +72,14 @@ short_name = 'ATL03'
 reg_a.add_icesat2(product=short_name)
 print(reg_a)
 ```
+![query2](../files/bisson/quest_query2.png)
 
 We can now see the available ICESat-2 files over our region of interest.
 
-```{code-cell} ipython3
+```python
 pprint(reg_a.datasets['icesat2'].avail_granules(ids=True))
 ```
+![is2list](../files/bisson/is2_file_list.png)
 
 For more information on functions that can be used for ICESat-2, users are referred to the [icepyx ReadtheDocs](https://icepyx.readthedocs.io/en/latest/)
 
@@ -106,6 +109,7 @@ Finally, let's add Argo to our wanted datasets!
 ```python
 reg_a.datasets['argo'].search_data()
 ```
+![argocount](../files/bisson/argo_file_count.png)
 
 ### Downloading the data
 We can now access data for both ICESat-2 and Argo! The below function will download both datasets at once.
@@ -147,6 +151,7 @@ reader.vars.append(beam_list=['gt2l'],
 # Load ICESat-2 data into Xarray
 ds = reader.load()
 ```
+![is2xarray](../files/bisson/is2_xarray_structure.png)
 
 To make the data easier to plot, let's convert the data into a Pandas DataFrame, just like Argo.
 
@@ -181,6 +186,7 @@ m = is2_gdf[is2_gdf['signal_conf_ph']>=3].explore(column='rgt',
 # Add Argo float locations to map
 argo_gdf.explore(m=m, name='Argo', marker_kwds={'radius': 6}, color='red')
 ```
+![exploremap](../files/bisson/explore_map.png)
 
 While we're at it, let's check out the temperature/pressure profiles for all of the Argo floats.
 
@@ -195,6 +201,7 @@ plt.ylabel('Pressure [hPa]')
 plt.ylim([750, -10])
 plt.tight_layout()
 ```
+![argoprofile](../files/bisson/argo_vertical_profile.png)
 
 Lastly, let's look at some near-coincident ICESat-2 and Argo data in a multi-panel plot.
 
@@ -256,5 +263,6 @@ ax4.set_ylabel('Argo Pressure', fontsize=16)
 
 plt.tight_layout()
 ```
+![fourpanel](../files/bisson/four_panel_plot.png)
 
 ## Wrap-Up
