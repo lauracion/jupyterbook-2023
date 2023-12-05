@@ -11,8 +11,29 @@ The QUEST (Query, Unify, Explore SpatioTemporal) Python software library aims to
 
 ## What is icepyx?
 
+[`icepyx`](https://icepyx.readthedocs.io/en/latest/) is both a *software library* and a *community* composed of ICESat-2 data users, developers, and the scientific community. We are working together to develop a shared library of resources - including existing resources, new code, tutorials, and use-cases/examples - that simplify the process of querying, obtaining, analyzing, and manipulating ICESat-2 and relevant ancillary datasets to enable scientific discovery.
+
+![icepyx_logo](https://icepyx.readthedocs.io/en/latest/_static/icepyx_v2_oval_orig_nobackgr.png)
+
+**Why use icepyx?**
+
+`icepyx` was started and initially developed to provide easy programmatic access to ICESat-2 data (before other great tools like `earthaccess` existed!) and facilitate collaborative development around ICESat-2 data products, including training, skill building, and support around practicing open science and contributing to open-source software. Thanks to contributions from countless community members, `icepyx` can (for ICESat-2 data): 
+- search for available data granules (data files)
+- order and download data or access it directly in the cloud
+- order a subset of data: clipped in space, time, containing fewer variables, or a few other options provided by NSIDC
+- search through the available ICESat-2 data variables
+- read ICESat-2 data into xarray DataArrays, including merging data from multiple files
+- search for concurrent datasets like Argo via the QUEST module
+
+Detailed tutorials and documentation for all of this functionality are available in the [icepyx documentation](https://icepyx.readthedocs.io/en/latest/example_notebooks/IS2_data_access.html).
+
 ### What is QUEST?
 
+`QUEST` - Query Unify Explore SpatioTemporal - is a companion module packaged with `icepyx` that simplifies the process of querying and combining multiple datasets. Very few scientific investigations are limited to data from just one sensor. Yet figuring out how to obtain and work with the data from each sensor can be time consuming and tedious. QUEST leverages the fact that some high level inputs, like our space and time bounds, remain consistent across all datasets. A QUEST object verifies the ranges are valid and stores them once in formats (e.g. datetime objects) that are easily modified into formatted application programming interface (API) input strings. Then, the QUEST object will search and access data for each of the datasets that have been added to it.
+
+Datasets available via the QUEST object are created by users. Currently, ICESat-2 and Argo (including Argo-BGC) data are available via QUEST. Behind the scenes, a template outlining the functions needed to access each dataset was completed to provide QUEST with the dataset-specific instructions for accessing that dataset. By using this template approach, anyone can easily add a new dataset to the existing QUEST infrastructure while capitalizing on the existing input handling. In the case of Argo and ICESat-2, other libraries (`argovis` and `icepyx`'s Query module, respectively) are used to provide these instructions to QUEST.
+
+![quest-structure]()
 
 ## Datasets
 
@@ -33,6 +54,9 @@ A portion of Argo floats are situated near the poles, and they sometimes drift u
 ![argoice](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/Thomas-JessinLOV-846x620.png)
 
 ## QUEST Example
+Here we demonstrate the use of the QUEST module to access coincident ICESat-2 and Argo data and plot that data.
+An interactive, Jupyter Notebook version of this workflow is available under the Examples tab of the [icepyx documentation](https://icepyx.readthedocs.io/en/latest/example_notebooks/IS2_data_access.html).
+
 ```python
 # Basic packages
 import geopandas as gpd
@@ -167,7 +191,7 @@ ds = reader.load()
 ```
 ![is2xarray](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/is2_xarray_structure.PNG)
 
-To make the data easier to plot, let's convert the data into a Pandas DataFrame, just like Argo. Since we are only looking at one file, we have sped up the coversion to a DataFrame by removing redundant Xarray dimensions.
+To make the data easier to plot, let's convert the data into a Pandas DataFrame, just like Argo. Since we are only looking at one file, we have sped up the conversion to a DataFrame by removing redundant Xarray dimensions.
 
 ```python
 # Convert from Xarray to Pandas
@@ -284,6 +308,6 @@ plt.tight_layout()
 ![fourpanel](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/four_panel_plot.PNG)
 
 ## Wrap-Up
-In this notebook, we demonstrated that, thanks to icepyx and QUEST, it is easy to access ICESat-2 and icepyx data simultaneously. Because ICESat-2 and Argo both have the capabilities to offer near real-time, vertically-resolved subsurface information of the world's oceans, The QUEST module will be helpful for the continued monitoring of ocean biology and biogeochemistry.
+In this notebook, we demonstrated that, thanks to icepyx and QUEST, it is easy to access ICESat-2 and Argo data simultaneously. Because ICESat-2 and Argo both have the capabilities to offer near real-time, vertically-resolved subsurface information of the world's oceans, the QUEST module will be helpful for the continued monitoring of ocean biology and biogeochemistry.
 
 Although we highlight Argo data in this presentation, QUEST has a framework designed to accept other datasets to compliment ICESat-2. We hope to expand the capabilities of QUEST with the help of the broader scientific community.
