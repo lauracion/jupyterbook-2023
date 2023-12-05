@@ -11,6 +11,22 @@ The QUEST (Query, Unify, Explore SpatioTemporal) Python software library aims to
 
 ## What is icepyx?
 
+[`icepyx`](https://icepyx.readthedocs.io/en/latest/) is both a *software library* and a *community* composed of ICESat-2 data users, developers, and the scientific community. We are working together to develop a shared library of resources - including existing resources, new code, tutorials, and use-cases/examples - that simplify the process of querying, obtaining, analyzing, and manipulating ICESat-2 and relevant ancillary datasets to enable scientific discovery.
+
+![icepyx_logo](https://icepyx.readthedocs.io/en/latest/_static/icepyx_v2_oval_orig_nobackgr.png)
+
+**Why use icepyx?**
+
+`icepyx` was started and initially developed to provide easy programmatic access to ICESat-2 data (before other great tools like `earthaccess` existed!) and facilitate collaborative development around ICESat-2 data products, including training, skill building, and support around practicing open science and contributing to open-source software. Thanks to contributions from countless community members, `icepyx` can (for ICESat-2 data): 
+- search for available data granules (data files)
+- order and download data or access it directly in the cloud
+- order a subset of data: clipped in space, time, containing fewer variables, or a few other options provided by NSIDC
+- search through the available ICESat-2 data variables
+- read ICESat-2 data into xarray DataArrays, including merging data from multiple files
+- search for concurrent datasets like Argo via the QUEST module
+
+Detailed tutorials and documentation for all of this functionality are available in the [icepyx documentation](https://icepyx.readthedocs.io/en/latest/example_notebooks/IS2_data_access.html).
+
 ### What is QUEST?
 
 
