@@ -29,6 +29,11 @@ Detailed tutorials and documentation for all of this functionality are available
 
 ### What is QUEST?
 
+`QUEST` - Query Unify Explore SpatioTemporal - is a companion module packaged with `icepyx` that simplifies the process of querying and combining multiple datasets. Very few scientific investigations are limited to data from just one sensor. Yet figuring out how to obtain and work with the data from each sensor can be time consuming and tedious. QUEST leverages the fact that some high level inputs, like our space and time bounds, remain consistent across all datasets. A QUEST object verifies the ranges are valid and stores them once in formats (e.g. datetime objects) that are easily modified into formatted application programming interface (API) input strings. Then, the QUEST object will search and access data for each of the datasets that have been added to it.
+
+Datasets available via the QUEST object are created by users. Currently, ICESat-2 and Argo (including Argo-BGC) data are available via QUEST. Behind the scenes, a template outlining the functions needed to access each dataset was completed to provide QUEST with the dataset-specific instructions for accessing that dataset. By using this template approach, anyone can easily add a new dataset to the existing QUEST infrastructure while capitalizing on the existing input handling. In the case of Argo and ICESat-2, other libraries (`argovis` and `icepyx`'s Query module, respectively) are used to provide these instructions to QUEST.
+
+![quest-structure]()
 
 ## Datasets
 
@@ -296,6 +301,6 @@ plt.tight_layout()
 ![fourpanel](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/four_panel_plot.PNG)
 
 ## Wrap-Up
-In this notebook, we demonstrated that, thanks to icepyx and QUEST, it is easy to access ICESat-2 and icepyx data simultaneously. Because ICESat-2 and Argo both have the capabilities to offer near real-time, vertically-resolved subsurface information of the world's oceans, The QUEST module will be helpful for the continued monitoring of ocean biology and biogeochemistry.
+In this notebook, we demonstrated that, thanks to icepyx and QUEST, it is easy to access ICESat-2 and Argo data simultaneously. Because ICESat-2 and Argo both have the capabilities to offer near real-time, vertically-resolved subsurface information of the world's oceans, the QUEST module will be helpful for the continued monitoring of ocean biology and biogeochemistry.
 
 Although we highlight Argo data in this presentation, QUEST has a framework designed to accept other datasets to compliment ICESat-2. We hope to expand the capabilities of QUEST with the help of the broader scientific community.
