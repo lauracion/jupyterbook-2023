@@ -151,7 +151,7 @@ The below workflow uses the [icepyx Read module](https://icepyx.readthedocs.io/e
 
 ```python
 file_path = f'{path}/quest-test-data/processed_ATL03_data.h5'
-reader = ipx.Read(file_path)
+reader = ipx.Read(data_source=file_path)
 
 # Specify the variables to be read
 reader.vars.append(beam_list=['gt2l'],
@@ -162,15 +162,19 @@ ds = reader.load()
 ```
 ![is2xarray](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/is2_xarray_structure.PNG)
 
-To make the data easier to plot, let's convert the data into a Pandas DataFrame, just like Argo.
+To make the data easier to plot, let's convert the data into a Pandas DataFrame, just like Argo. Since we are only looking at one file, we have sped up the coversion to a DataFrame by removing redundant Xarray dimensions.
 
 ```python
 # Convert from Xarray to Pandas
-is2_pd = ds.to_dataframe()
+is2_pd = (ds.squeeze()
+          .reset_coords()
+          .drop_vars(['source_file','data_start_utc','data_end_utc','gran_idx'])
+          .to_dataframe()
+          )
 
-# Rearrange the data to only include "ocean" photons
+# Create a new dataframe with only "ocean" photons, as indicated by the "ds_surf_type" flag
 is2_pd = is2-pd.reset_index(level=[0,1,2])
-is2_pd_ocean = is2_pd[is2_pd.index==1]
+is2_pd_ocean = is2_pd[is2_pd.ds_surf_type==1].drop(columns='photon_index')
 ```
 
 To view the relative locations of ICESat-2 and Argo, the below code coverts the data into GeoDataFrames and uses the `explore()` function. Note that for large datasets like ICESat-2, loading the map might take a while.
@@ -185,7 +189,7 @@ argo_gdf = gpd.GeoDataFrame(argo_df,
                            crs='EPSG:4326')
 
 # Drop time variables (these cause errors with the "explore" function
-is2_gdf = is2_gdf.drop(['data_start_utc', 'data_end_etc', 'delta_time', 'atlas_sdp_gps_epoch'], axis=1)
+is2_gdf = is2_gdf.drop(['delta_time', 'atlas_sdp_gps_epoch'], axis=1)
 
 # Plot the ICESat-2 track (medium/high confidence photons only) on a map
 m = is2_gdf[is2_gdf['signal_conf_ph']>=3].explore(column='rgt',
