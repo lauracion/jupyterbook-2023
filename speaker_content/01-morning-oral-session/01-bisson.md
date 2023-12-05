@@ -184,7 +184,7 @@ ds = reader.load()
 ```
 ![is2xarray](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/is2_xarray_structure.PNG)
 
-To make the data easier to plot, let's convert the data into a Pandas DataFrame, just like Argo. Since we are only looking at one file, we have sped up the coversion to a DataFrame by removing redundant Xarray dimensions.
+To make the data easier to plot, let's convert the data into a Pandas DataFrame, just like Argo. Since we are only looking at one file, we have sped up the conversion to a DataFrame by removing redundant Xarray dimensions.
 
 ```python
 # Convert from Xarray to Pandas
