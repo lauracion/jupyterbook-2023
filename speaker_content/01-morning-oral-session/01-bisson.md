@@ -19,6 +19,10 @@ The QUEST (Query, Unify, Explore SpatioTemporal) Python software library aims to
 ### ICESat-2 Basics
 ![is2overice](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/bannerhorizontal2k.png)
 
+The Ice, Clouds, and Land Elevation Satellite-2 (ICESat-2) is a space-based lidar altimeter launched in September 2018 to measure changes in land ice, glaciers, and sea ice. Additional data products allow for analysis of vegetation canopies, inland water, and oceans.
+
+Over the ocean, ICESat-2 data have been used to (1) generate vertical profiles of particulate backscatter and light attenuation, (2) map water bathymetry accurate to ~0.5 m, and (3) contextualize phytoplankton phenology under sea ice.
+
 ### Argo Basics
 ![argocycle](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/float_cycle_1-1184x654.png)
 
