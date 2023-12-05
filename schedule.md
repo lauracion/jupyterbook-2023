@@ -9,7 +9,7 @@ kernelspec:
     name: python3
 ---
 # Schedule
-## Day TBD
+## Friday, December 8, 2023
 
 **8:30 - 10:00 - [Oral talks + discussion](./speaker_content/01-morning-oral-session/00-overview.md)**
 * 5x10-minute talks + ~40-min discussion
