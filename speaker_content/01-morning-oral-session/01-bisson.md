@@ -17,6 +17,7 @@ The QUEST (Query, Unify, Explore SpatioTemporal) Python software library aims to
 ## Datasets
 
 ### ICESat-2 Basics
+![is2overice](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/bannerhorizontal2k.png)
 
 ### Argo Basics
 ![argocycle](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/float_cycle_1-1184x654.png)
