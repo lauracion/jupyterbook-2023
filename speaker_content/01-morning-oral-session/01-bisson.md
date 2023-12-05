@@ -50,6 +50,9 @@ A portion of Argo floats are situated near the poles, and they sometimes drift u
 ![argoice](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/Thomas-JessinLOV-846x620.png)
 
 ## QUEST Example
+Here we demonstrate the use of the QUEST module to access coincident ICESat-2 and Argo data and plot that data.
+An interactive, Jupyter Notebook version of this workflow is available under the Examples tab of the [icepyx documentation](https://icepyx.readthedocs.io/en/latest/example_notebooks/IS2_data_access.html).
+
 ```python
 # Basic packages
 import geopandas as gpd
