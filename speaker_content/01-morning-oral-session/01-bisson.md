@@ -33,25 +33,25 @@ Detailed tutorials and documentation for all of this functionality are available
 
 Datasets available via the QUEST object are created by users. Currently, ICESat-2 and Argo (including Argo-BGC) data are available via QUEST. Behind the scenes, a template outlining the functions needed to access each dataset was completed to provide QUEST with the dataset-specific instructions for accessing that dataset. By using this template approach, anyone can easily add a new dataset to the existing QUEST infrastructure while capitalizing on the existing input handling. In the case of Argo and ICESat-2, other libraries (`argovis` and `icepyx`'s Query module, respectively) are used to provide these instructions to QUEST.
 
-![quest-structure]()
+![quest-structure](./files/bisson/QUEST_conceptual_uml.png)
 
 ## Datasets
 
 ### ICESat-2 Basics
-![is2overice](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/bannerhorizontal2k.png)
+![is2overice](./files/bisson/bannerhorizontal2k.png)
 
 The Ice, Clouds, and Land Elevation Satellite-2 (ICESat-2) is a space-based lidar altimeter launched in September 2018 to measure changes in land ice, glaciers, and sea ice. Additional data products allow for analysis of vegetation canopies, inland water, and oceans.
 
 Over the ocean, ICESat-2 data have been used to (1) generate vertical profiles of particulate backscatter and light attenuation, (2) map water bathymetry accurate to ~0.5 m, and (3) contextualize phytoplankton phenology under sea ice.
 
 ### Argo Basics
-![argocycle](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/float_cycle_1-1184x654.png)
+![argocycle](./files/bisson/float_cycle_1-1184x654.png)
 
 Argo floats are untethered sensors that bob in the ocean to collect data as they are carried by ocean currents. Argo floats can control their own buoyancy but not their trajectory. They primarily measure salinity, temperature, and biological activity within the Earth's oceans, though some Argo floats also provide optical measurements (light attenuation at 490 nm, particulate backscatter at 700 nm) to validate satellite measurements.
 
 A portion of Argo floats are situated near the poles, and they sometimes drift underneath sea ice. Ocean conditions beneath sea ice are not well understood, so polar Argo floats provide useful data for the oceanographic community.
 
-![argoice](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/Thomas-JessinLOV-846x620.png)
+![argoice](./files/bisson/Thomas-JessinLOV-846x620.png)
 
 ## QUEST Example
 Here we demonstrate the use of the QUEST module to access coincident ICESat-2 and Argo data and plot that data.
@@ -90,7 +90,7 @@ reg_a = ipx.Quest(spatial_extent=spatial_extent, date_range=date_range)
 
 print(reg_a)
 ```
-![query](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/quest_query.PNG)
+![query]./files/bisson/quest_query.PNG)
 
 We have defined our spatial and temporal domains, now we need to add datasets to our query!
 
@@ -110,14 +110,14 @@ track = '411'
 reg_a.add_icesat2(product=short_name, tracks=track)
 print(reg_a)
 ```
-![query2](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/quest_query2.PNG)
+![query2](./files/bisson/quest_query2.PNG)
 
 We can now see the available ICESat-2 file over our region of interest.
 
 ```python
 pprint(reg_a.datasets['icesat2'].avail_granules(ids=True))
 ```
-![is2list](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/is2_file_list.PNG)
+![is2list](./files/bisson/is2_file_list.PNG)
 
 For more information on functions that can be used for ICESat-2, users are referred to the [icepyx ReadtheDocs](https://icepyx.readthedocs.io/en/latest/)
 
@@ -147,7 +147,7 @@ Finally, let's add Argo to our wanted datasets!
 ```python
 reg_a.datasets['argo'].search_data()
 ```
-![argocount](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/argo_file_count.PNG)
+![argocount](./files/bisson/argo_file_count.PNG)
 
 ### Downloading the data
 We can now access data for both ICESat-2 and Argo! The below function will download both datasets at once.
@@ -189,7 +189,7 @@ reader.vars.append(beam_list=['gt2l'],
 # Load ICESat-2 data into Xarray
 ds = reader.load()
 ```
-![is2xarray](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/is2_xarray_structure.PNG)
+![is2xarray](./files/bisson/is2_xarray_structure.PNG)
 
 To make the data easier to plot, let's convert the data into a Pandas DataFrame, just like Argo. Since we are only looking at one file, we have sped up the conversion to a DataFrame by removing redundant Xarray dimensions.
 
@@ -228,7 +228,7 @@ m = is2_gdf[is2_gdf['signal_conf_ph']>=3].explore(column='rgt',
 # Add Argo float locations to map
 argo_gdf.explore(m=m, name='Argo', marker_kwds={'radius': 6}, color='red')
 ```
-![exploremap](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/explore_map.PNG)
+![exploremap](./files/bisson/explore_map.PNG)
 
 While we're at it, let's check out the temperature/pressure profiles for all of the Argo floats.
 
@@ -243,7 +243,7 @@ plt.ylabel('Pressure [hPa]')
 plt.ylim([750, -10])
 plt.tight_layout()
 ```
-![argoprofile](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/argo_vertical_profile.PNG)
+![argoprofile](./files/bisson/argo_vertical_profile.PNG)
 
 Lastly, let's look at some near-coincident ICESat-2 and Argo data in a multi-panel plot.
 
@@ -305,7 +305,7 @@ ax4.set_ylabel('Argo Pressure', fontsize=16)
 
 plt.tight_layout()
 ```
-![fourpanel](https://github.com/zachghiaccio/jupyterbook-2023/blob/quest-presentation/speaker_content/01-morning-oral-session/files/bisson/four_panel_plot.PNG)
+![fourpanel](./files/bisson/four_panel_plot.PNG)
 
 ## Wrap-Up
 In this notebook, we demonstrated that, thanks to icepyx and QUEST, it is easy to access ICESat-2 and Argo data simultaneously. Because ICESat-2 and Argo both have the capabilities to offer near real-time, vertically-resolved subsurface information of the world's oceans, the QUEST module will be helpful for the continued monitoring of ocean biology and biogeochemistry.
