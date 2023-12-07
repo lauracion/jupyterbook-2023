@@ -60,14 +60,9 @@ An interactive, Jupyter Notebook version of this workflow is available under the
 ```python
 # Basic packages
 import geopandas as gpd
-import h5py
 import matplotlib.pyplot as plt
 import numpy as np
-from os import listdir
-from os.path import isfile, join
-import pandas as pd
 from pprint import pprint
-import requests
 
 # icepyx and QUEST
 import icepyx as ipx
@@ -90,14 +85,14 @@ reg_a = ipx.Quest(spatial_extent=spatial_extent, date_range=date_range)
 
 print(reg_a)
 ```
-![query]./files/bisson/quest_query.PNG)
+![query](./files/bisson/quest_query.PNG)
 
 We have defined our spatial and temporal domains, now we need to add datasets to our query!
 
 ### Getting the ICESat-2 data
-If we want to extract information about the water column, the **ICESat-2 ATL03 product** is likely the desired choice.\
+If we want to extract information about the water column, the **ICESat-2 ATL03 product** is likely the desired choice.
 
-Normally, the query would return 13 ICESat-2 files for downloading. This may be potentially useful for a regular user, but it is excessive for this example. Hence, we specify a reference ground track (RGT, `track`) below.
+Normally, the query would return 14 ICESat-2 files for downloading. This may be potentially useful for a regular user, but it is excessive for this example. Hence, we specify a reference ground track (RGT, `track`) below to limit our results to only one granule.
 
 ```python
 # ICESat-2 product
@@ -128,21 +123,21 @@ Accessing Argo data is similar to ICESat-2:
 reg_a.add_argo()
 ```
 
-By default, Argo data is organized as vertical profiles of temperature as a function of pressure. The user can supply a list of desired parameters using the code below:
+By default, Argo data is organized as vertical profiles of temperature as a function of pressure. The user can supply a list of desired parameters - including Argo BGC parameters - using the code below:
 
 ```python
-# Customized variable query
-reg_a.add_argo(params=['temperature'])
+# Customized variable query when adding Argo to our QUEST object
+reg_a.add_argo(params=['temperature', 'salinity'])
 ```
 
 Additionally, a user may view or update the list of Argo parameters at any time:
 
 ```python
 # Update the list of Argo parameters
-reg_a.datasets['argo'].params = ['temperature', 'salinity']
+reg_a.datasets['argo'].params = ['temperature']
 ```
 
-Finally, let's add Argo to our wanted datasets!
+Finally, let's search for Argo data with our current parameters!
 
 ```python
 reg_a.datasets['argo'].search_data()
@@ -168,9 +163,6 @@ If the user wishes to add more profiles to a pre-existing query, they should use
 
 ```python
 reg_a.download_all(path, keep_existing=True)
-
-# Set Aego data as its own DataFrame
-argo_df = reg_a.datasets['argo'].argodata
 ```
 
 ### Reading and Visualizing the Data
@@ -204,9 +196,12 @@ is2_pd = (ds.squeeze()
 # Create a new dataframe with only "ocean" photons, as indicated by the "ds_surf_type" flag
 is2_pd = is2-pd.reset_index(level=[0,1,2])
 is2_pd_ocean = is2_pd[is2_pd.ds_surf_type==1].drop(columns='photon_index')
+
+# Set Argo data as its own DataFrame
+argo_df = reg_a.datasets['argo'].argodata
 ```
 
-To view the relative locations of ICESat-2 and Argo, the below code coverts the data into GeoDataFrames and uses the `explore()` function. Note that for large datasets like ICESat-2, loading the map might take a while.
+To view the relative locations of ICESat-2 and Argo, the below code converts the data into GeoDataFrames and uses the `explore()` function. Note that for large datasets like ICESat-2, loading the map might take a while.
 
 ```python
 # Convert to GeodataFrames
@@ -217,7 +212,7 @@ argo_gdf = gpd.GeoDataFrame(argo_df,
                            geometry=gpd.points_from_xy(argo_df['lon'], argo_df['lat']),
                            crs='EPSG:4326')
 
-# Drop time variables (these cause errors with the "explore" function
+# Drop time variables (these cause errors with the "explore" function)
 is2_gdf = is2_gdf.drop(['delta_time', 'atlas_sdp_gps_epoch'], axis=1)
 
 # Plot the ICESat-2 track (medium/high confidence photons only) on a map
@@ -268,7 +263,6 @@ world.plot(ax=ax1, color='0.8', edgecolor='black')
 argo_df.plot.scatter(ax=ax1, x='lon', y='lat', s=25.0, c='green', zorder=3, alpha=0.3)
 is2_pd_signal.plot.scatter(ax=ax1, x='lon_ph', y='lat_ph', s=10.0, zorder=2, alpha=0.3)
 ax1.plot(lons, lats, linewidth=1.5, color='orange', zorder=2)
-#df.plot(ax=ax2, x='lon', y='lat', marker='o', color='red', markersize=2.5, zorder=3)
 ax1.set_xlim(-160,-100)
 ax1.set_ylim(20,50)
 ax1.set_aspect('equal', adjustable='box')
@@ -310,4 +304,4 @@ plt.tight_layout()
 ## Wrap-Up
 In this notebook, we demonstrated that, thanks to icepyx and QUEST, it is easy to access ICESat-2 and Argo data simultaneously. Because ICESat-2 and Argo both have the capabilities to offer near real-time, vertically-resolved subsurface information of the world's oceans, the QUEST module will be helpful for the continued monitoring of ocean biology and biogeochemistry.
 
-Although we highlight Argo data in this presentation, QUEST has a framework designed to accept other datasets to compliment ICESat-2. We hope to expand the capabilities of QUEST with the help of the broader scientific community.
+Although we highlight Argo data in this presentation, the QUEST framework is designed to easily add other datasets to compliment ICESat-2 or Argo. We hope to expand the capabilities of QUEST with the help of the broader scientific community. Please get in touch and tell us about your dataset of interest!
