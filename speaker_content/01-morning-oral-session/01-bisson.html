@@ -404,6 +404,24 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstract">Abstract</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-icepyx">What is icepyx?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-quest">What is QUEST?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#icesat-2-basics">ICESat-2 Basics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argo-basics">Argo Basics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quest-example">QUEST Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-query-object">Define the Query Object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-icesat-2-data">Getting the ICESat-2 data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-argo-data">Getting the Argo data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-the-data">Downloading the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-and-visualizing-the-data">Reading and Visualizing the Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-Up</a></li>
 </ul>
             </nav>
         </div>
@@ -417,11 +435,281 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="on-a-quest-query-unify-explore-spatiotemporal-to-accelerate-icesat-2-applications-in-ocean-science-via-icepyx">
 <h1>01 - 	On a QUEST (Query, Unify, Explore SpatioTemporal) to Accelerate ICESat-2 Applications in Ocean Science via icepyx<a class="headerlink" href="#on-a-quest-query-unify-explore-spatiotemporal-to-accelerate-icesat-2-applications-in-ocean-science-via-icepyx" title="Permalink to this heading">#</a></h1>
-<p>Presented by: Kelsey Bisson</p>
+<p>Authors: Jessica Scheick, Kelsey Bisson, Zachary Fair, Romina Piunno, Nicole Abib, Alessandro Di Bella, Rachel Tilling<br />
+Presented by: Zachary Fair</p>
 <section id="abstract">
 <h2>Abstract<a class="headerlink" href="#abstract" title="Permalink to this heading">#</a></h2>
 <p>Collaboration and inclusivity will be critical for tackling modern environmental challenges resulting from increased anthropogenic stressors. Even as we celebrate 2023 as the Year of Open Source Science, many scientific disciplines - and thus their technologies, tools, and expertise - remain siloed. The ICESat-2 (Ice, Cloud, and land Elevation Satellite 2) was launched in 2018 with a strong focus towards cryospheric investigations. However, the sensor’s contributions to advances among the vegetation and oceanography communities are nontrivial. New environmental discoveries are made possible by exposing the mission and its unique capabilities to other disciplines.</p>
 <p>The QUEST (Query, Unify, Explore SpatioTemporal) Python software library aims to bridge this divide. QUEST is a submodule of icepyx, a community of data managers, users, and developers and a software library providing tooling for ICESat-2 data access, visualization, processing, and analysis locally and in the cloud. The QUEST module capitalizes on the object-oriented properties of Python (and thus icepyx) to create a framework for easily integrating additional datasets into a single workflow. The motivating use case for developing QUEST came from oceanography and aims to combine ICESat-2 data with Argo data to investigate sea ice phytoplankton. Wanting to make their work as interoperable as possible, the development team created QUEST with a templated framework to enable easy addition of additional sensors and datasets. This presentation will showcase the QUEST module and the ways in which it can and is enabling oceanographic investigations.</p>
+</section>
+<section id="what-is-icepyx">
+<h2>What is icepyx?<a class="headerlink" href="#what-is-icepyx" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://icepyx.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">icepyx</span></code></a> is both a <em>software library</em> and a <em>community</em> composed of ICESat-2 data users, developers, and the scientific community. We are working together to develop a shared library of resources - including existing resources, new code, tutorials, and use-cases/examples - that simplify the process of querying, obtaining, analyzing, and manipulating ICESat-2 and relevant ancillary datasets to enable scientific discovery.</p>
+<p><img alt="icepyx_logo" src="https://icepyx.readthedocs.io/en/latest/_static/icepyx_v2_oval_orig_nobackgr.png" /></p>
+<p><strong>Why use icepyx?</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">icepyx</span></code> was started and initially developed to provide easy programmatic access to ICESat-2 data (before other great tools like <code class="docutils literal notranslate"><span class="pre">earthaccess</span></code> existed!) and facilitate collaborative development around ICESat-2 data products, including training, skill building, and support around practicing open science and contributing to open-source software. Thanks to contributions from countless community members, <code class="docutils literal notranslate"><span class="pre">icepyx</span></code> can (for ICESat-2 data):</p>
+<ul class="simple">
+<li><p>search for available data granules (data files)</p></li>
+<li><p>order and download data or access it directly in the cloud</p></li>
+<li><p>order a subset of data: clipped in space, time, containing fewer variables, or a few other options provided by NSIDC</p></li>
+<li><p>search through the available ICESat-2 data variables</p></li>
+<li><p>read ICESat-2 data into xarray DataArrays, including merging data from multiple files</p></li>
+<li><p>search for concurrent datasets like Argo via the QUEST module</p></li>
+</ul>
+<p>Detailed tutorials and documentation for all of this functionality are available in the <a class="reference external" href="https://icepyx.readthedocs.io/en/latest/example_notebooks/IS2_data_access.html">icepyx documentation</a>.</p>
+<section id="what-is-quest">
+<h3>What is QUEST?<a class="headerlink" href="#what-is-quest" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">QUEST</span></code> - Query Unify Explore SpatioTemporal - is a companion module packaged with <code class="docutils literal notranslate"><span class="pre">icepyx</span></code> that simplifies the process of querying and combining multiple datasets. Very few scientific investigations are limited to data from just one sensor. Yet figuring out how to obtain and work with the data from each sensor can be time consuming and tedious. QUEST leverages the fact that some high level inputs, like our space and time bounds, remain consistent across all datasets. A QUEST object verifies the ranges are valid and stores them once in formats (e.g. datetime objects) that are easily modified into formatted application programming interface (API) input strings. Then, the QUEST object will search and access data for each of the datasets that have been added to it.</p>
+<p>Datasets available via the QUEST object are created by users. Currently, ICESat-2 and Argo (including Argo-BGC) data are available via QUEST. Behind the scenes, a template outlining the functions needed to access each dataset was completed to provide QUEST with the dataset-specific instructions for accessing that dataset. By using this template approach, anyone can easily add a new dataset to the existing QUEST infrastructure while capitalizing on the existing input handling. In the case of Argo and ICESat-2, other libraries (<code class="docutils literal notranslate"><span class="pre">argovis</span></code> and <code class="docutils literal notranslate"><span class="pre">icepyx</span></code>’s Query module, respectively) are used to provide these instructions to QUEST.</p>
+<p><img alt="quest-structure" src="../../_images/QUEST_conceptual_uml.png" /></p>
+</section>
+</section>
+<section id="datasets">
+<h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this heading">#</a></h2>
+<section id="icesat-2-basics">
+<h3>ICESat-2 Basics<a class="headerlink" href="#icesat-2-basics" title="Permalink to this heading">#</a></h3>
+<p><img alt="is2overice" src="../../_images/bannerhorizontal2k.png" /></p>
+<p>The Ice, Clouds, and Land Elevation Satellite-2 (ICESat-2) is a space-based lidar altimeter launched in September 2018 to measure changes in land ice, glaciers, and sea ice. Additional data products allow for analysis of vegetation canopies, inland water, and oceans.</p>
+<p>Over the ocean, ICESat-2 data have been used to (1) generate vertical profiles of particulate backscatter and light attenuation, (2) map water bathymetry accurate to ~0.5 m, and (3) contextualize phytoplankton phenology under sea ice.</p>
+</section>
+<section id="argo-basics">
+<h3>Argo Basics<a class="headerlink" href="#argo-basics" title="Permalink to this heading">#</a></h3>
+<p><img alt="argocycle" src="../../_images/float_cycle_1-1184x654.png" /></p>
+<p>Argo floats are untethered sensors that bob in the ocean to collect data as they are carried by ocean currents. Argo floats can control their own buoyancy but not their trajectory. They primarily measure salinity, temperature, and biological activity within the Earth’s oceans, though some Argo floats also provide optical measurements (light attenuation at 490 nm, particulate backscatter at 700 nm) to validate satellite measurements.</p>
+<p>A portion of Argo floats are situated near the poles, and they sometimes drift underneath sea ice. Ocean conditions beneath sea ice are not well understood, so polar Argo floats provide useful data for the oceanographic community.</p>
+<p><img alt="argoice" src="../../_images/Thomas-JessinLOV-846x620.png" /></p>
+</section>
+</section>
+<section id="quest-example">
+<h2>QUEST Example<a class="headerlink" href="#quest-example" title="Permalink to this heading">#</a></h2>
+<p>Here we demonstrate the use of the QUEST module to access coincident ICESat-2 and Argo data and plot that data.
+An interactive, Jupyter Notebook version of this workflow is available under the Examples tab of the <a class="reference external" href="https://icepyx.readthedocs.io/en/latest/example_notebooks/IS2_data_access.html">icepyx documentation</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic packages</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="c1"># icepyx and QUEST</span>
+<span class="kn">import</span> <span class="nn">icepyx</span> <span class="k">as</span> <span class="nn">ipx</span>
+</pre></div>
+</div>
+<section id="define-the-query-object">
+<h3>Define the Query Object<a class="headerlink" href="#define-the-query-object" title="Permalink to this heading">#</a></h3>
+<p>To start looking for data, we begin by defining our Quest object. We provide the following bounding parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">spatial_extent</span></code>: Data is constrained to a bounding box over the Pacific Ocean.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">date_range</span></code>: Only grab data from April 12-26, 2022.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Spatial bounds, given as SW/NE corners</span>
+<span class="n">spatial_extent</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">154</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">143</span><span class="p">,</span> <span class="mi">37</span><span class="p">]</span>
+
+<span class="c1"># Start and end dates, in YYYY-MM-DD format</span>
+<span class="n">date_range</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2022-04-12&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-04-26&#39;</span><span class="p">]</span>
+
+<span class="c1"># Initialize the QUEST object</span>
+<span class="n">reg_a</span> <span class="o">=</span> <span class="n">ipx</span><span class="o">.</span><span class="n">Quest</span><span class="p">(</span><span class="n">spatial_extent</span><span class="o">=</span><span class="n">spatial_extent</span><span class="p">,</span> <span class="n">date_range</span><span class="o">=</span><span class="n">date_range</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">reg_a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="query" src="../../_images/quest_query.PNG" /></p>
+<p>We have defined our spatial and temporal domains, now we need to add datasets to our query!</p>
+</section>
+<section id="getting-the-icesat-2-data">
+<h3>Getting the ICESat-2 data<a class="headerlink" href="#getting-the-icesat-2-data" title="Permalink to this heading">#</a></h3>
+<p>If we want to extract information about the water column, the <strong>ICESat-2 ATL03 product</strong> is likely the desired choice.</p>
+<p>Normally, the query would return 14 ICESat-2 files for downloading. This may be potentially useful for a regular user, but it is excessive for this example. Hence, we specify a reference ground track (RGT, <code class="docutils literal notranslate"><span class="pre">track</span></code>) below to limit our results to only one granule.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ICESat-2 product</span>
+<span class="n">short_name</span> <span class="o">=</span> <span class="s1">&#39;ATL03&#39;</span>
+
+<span class="c1"># Reference ground track (RGT)</span>
+<span class="n">track</span> <span class="o">=</span> <span class="s1">&#39;411&#39;</span>
+
+<span class="c1"># Add ICESat-2 to QUEST query</span>
+<span class="n">reg_a</span><span class="o">.</span><span class="n">add_icesat2</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="n">short_name</span><span class="p">,</span> <span class="n">tracks</span><span class="o">=</span><span class="n">track</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reg_a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="query2" src="../../_images/quest_query2.PNG" /></p>
+<p>We can now see the available ICESat-2 file over our region of interest.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="p">(</span><span class="n">reg_a</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;icesat2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">avail_granules</span><span class="p">(</span><span class="n">ids</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><img alt="is2list" src="../../_images/is2_file_list.PNG" /></p>
+<p>For more information on functions that can be used for ICESat-2, users are referred to the <a class="reference external" href="https://icepyx.readthedocs.io/en/latest/">icepyx ReadtheDocs</a></p>
+</section>
+<section id="getting-the-argo-data">
+<h3>Getting the Argo data<a class="headerlink" href="#getting-the-argo-data" title="Permalink to this heading">#</a></h3>
+<p>Accessing Argo data is similar to ICESat-2:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reg_a</span><span class="o">.</span><span class="n">add_argo</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>By default, Argo data is organized as vertical profiles of temperature as a function of pressure. The user can supply a list of desired parameters - including Argo BGC parameters - using the code below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Customized variable query when adding Argo to our QUEST object</span>
+<span class="n">reg_a</span><span class="o">.</span><span class="n">add_argo</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;salinity&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Additionally, a user may view or update the list of Argo parameters at any time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update the list of Argo parameters</span>
+<span class="n">reg_a</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;argo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Finally, let’s search for Argo data with our current parameters!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reg_a</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;argo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">search_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="argocount" src="../../_images/argo_file_count.PNG" /></p>
+</section>
+<section id="downloading-the-data">
+<h3>Downloading the data<a class="headerlink" href="#downloading-the-data" title="Permalink to this heading">#</a></h3>
+<p>We can now access data for both ICESat-2 and Argo! The below function will download both datasets at once.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Path for saved ICESat-2 files</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/icepyx/quest/downloaded-data/&#39;</span>
+
+<span class="c1"># Access ICESat-2 and Argo data simultaneously</span>
+<span class="n">reg_a</span><span class="o">.</span><span class="n">download_all</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Important</strong>: With our current code, the Argo data is compiled into a Pandas DataFrame, whereas the processed ICESat-2 data is saved as HDF-5 files to the directory given above.</p>
+<p>We now have 13 Argo profiles, each containing <code class="docutils literal notranslate"><span class="pre">pressure</span></code>, <code class="docutils literal notranslate"><span class="pre">temperature</span></code>, and <code class="docutils literal notranslate"><span class="pre">salinity</span></code>!</p>
+<p>If the user wishes to add more profiles to a pre-existing query, they should use the following syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reg_a</span><span class="o">.</span><span class="n">download_all</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">keep_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="reading-and-visualizing-the-data">
+<h3>Reading and Visualizing the Data<a class="headerlink" href="#reading-and-visualizing-the-data" title="Permalink to this heading">#</a></h3>
+<p>We already have the Argo data ready in a Pandas DataFrame, but the ICESat-2 data is saved as several HDF-5 files. Because these data files are often large, we only focus on one granule for this example.</p>
+<p>The below workflow uses the <a class="reference external" href="https://icepyx.readthedocs.io/en/latest/example_notebooks/IS2_data_read-in.html">icepyx Read module</a> to quickly load ICESat-2 data into the Xarray format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">file_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">/quest-test-data/processed_ATL03_data.h5&#39;</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">ipx</span><span class="o">.</span><span class="n">Read</span><span class="p">(</span><span class="n">data_source</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="c1"># Specify the variables to be read</span>
+<span class="n">reader</span><span class="o">.</span><span class="n">vars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">beam_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gt2l&#39;</span><span class="p">],</span>
+                   <span class="n">var_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;h_ph&#39;</span><span class="p">,</span> <span class="s1">&#39;lat_ph&#39;</span><span class="p">,</span> <span class="s1">&#39;lon_ph&#39;</span><span class="p">,</span> <span class="s1">&#39;signal_conf_ph&#39;</span><span class="p">])</span>
+
+<span class="c1"># Load ICESat-2 data into Xarray</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="is2xarray" src="../../_images/is2_xarray_structure.PNG" /></p>
+<p>To make the data easier to plot, let’s convert the data into a Pandas DataFrame, just like Argo. Since we are only looking at one file, we have sped up the conversion to a DataFrame by removing redundant Xarray dimensions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert from Xarray to Pandas</span>
+<span class="n">is2_pd</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+          <span class="o">.</span><span class="n">reset_coords</span><span class="p">()</span>
+          <span class="o">.</span><span class="n">drop_vars</span><span class="p">([</span><span class="s1">&#39;source_file&#39;</span><span class="p">,</span><span class="s1">&#39;data_start_utc&#39;</span><span class="p">,</span><span class="s1">&#39;data_end_utc&#39;</span><span class="p">,</span><span class="s1">&#39;gran_idx&#39;</span><span class="p">])</span>
+          <span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+          <span class="p">)</span>
+
+<span class="c1"># Create a new dataframe with only &quot;ocean&quot; photons, as indicated by the &quot;ds_surf_type&quot; flag</span>
+<span class="n">is2_pd</span> <span class="o">=</span> <span class="n">is2</span><span class="o">-</span><span class="n">pd</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">is2_pd_ocean</span> <span class="o">=</span> <span class="n">is2_pd</span><span class="p">[</span><span class="n">is2_pd</span><span class="o">.</span><span class="n">ds_surf_type</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;photon_index&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set Argo data as its own DataFrame</span>
+<span class="n">argo_df</span> <span class="o">=</span> <span class="n">reg_a</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;argo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">argodata</span>
+</pre></div>
+</div>
+<p>To view the relative locations of ICESat-2 and Argo, the below code converts the data into GeoDataFrames and uses the <code class="docutils literal notranslate"><span class="pre">explore()</span></code> function. Note that for large datasets like ICESat-2, loading the map might take a while.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to GeodataFrames</span>
+<span class="n">is2_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">is2_pd_ocean</span><span class="p">,</span>
+                           <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">is2_pd_ocean</span><span class="p">[</span><span class="s1">&#39;lon_ph&#39;</span><span class="p">],</span> <span class="n">is2_pd_ocean</span><span class="p">[</span><span class="s1">&#39;lat_ph&#39;</span><span class="p">]),</span>
+                           <span class="n">crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
+<span class="n">argo_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">argo_df</span><span class="p">,</span>
+                           <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">argo_df</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">argo_df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]),</span>
+                           <span class="n">crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
+
+<span class="c1"># Drop time variables (these cause errors with the &quot;explore&quot; function)</span>
+<span class="n">is2_gdf</span> <span class="o">=</span> <span class="n">is2_gdf</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;delta_time&#39;</span><span class="p">,</span> <span class="s1">&#39;atlas_sdp_gps_epoch&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Plot the ICESat-2 track (medium/high confidence photons only) on a map</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">is2_gdf</span><span class="p">[</span><span class="n">is2_gdf</span><span class="p">[</span><span class="s1">&#39;signal_conf_ph&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;rgt&#39;</span><span class="p">,</span>
+                                                  <span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;Esri.WorldImagery&#39;</span><span class="p">,</span>
+                                                  <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ICESat-2&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add Argo float locations to map</span>
+<span class="n">argo_gdf</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Argo&#39;</span><span class="p">,</span> <span class="n">marker_kwds</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">},</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="exploremap" src="../../_images/explore_map.PNG" /></p>
+<p>While we’re at it, let’s check out the temperature/pressure profiles for all of the Argo floats.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot vertical profile of temperature vs. pressure for all of the floats</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">argo_df</span><span class="p">[</span><span class="s1">&#39;profile_id&#39;</span><span class="p">]):</span>
+    <span class="n">argo_df</span><span class="p">[</span><span class="n">argo_df</span><span class="p">[</span><span class="s1">&#39;profile_id&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">pid</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pressure&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">pid</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Temperature [$\degree$C]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Pressure [hPa]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">750</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="argoprofile" src="../../_images/argo_vertical_profile.PNG" /></p>
+<p>Lastly, let’s look at some near-coincident ICESat-2 and Argo data in a multi-panel plot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only consider ICESat-2 signal photons</span>
+<span class="n">is2_pd_signal</span> <span class="o">=</span> <span class="n">is2_pd_ocean</span><span class="p">[</span><span class="n">is2_pd_ocean</span><span class="p">[</span><span class="s1">&#39;signal_conf_ph&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1">## Multi-panel plot showing ICESat-2 and Argo data</span>
+
+<span class="c1"># Calculate Extent</span>
+<span class="n">lons</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">154</span><span class="p">,</span> <span class="o">-</span><span class="mi">143</span><span class="p">,</span> <span class="o">-</span><span class="mi">143</span><span class="p">,</span> <span class="o">-</span><span class="mi">154</span><span class="p">,</span> <span class="o">-</span><span class="mi">154</span><span class="p">]</span>
+<span class="n">lats</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
+<span class="n">lon_margin</span> <span class="o">=</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">lons</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">lons</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.1</span>
+<span class="n">lat_margin</span> <span class="o">=</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">lats</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">lats</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.1</span>
+
+<span class="c1"># Create Plot</span>
+<span class="n">fig</span><span class="p">,([</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">],[</span><span class="n">ax3</span><span class="p">,</span><span class="n">ax4</span><span class="p">])</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot Relative Global View</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">gpd</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;naturalearth_lowres&#39;</span><span class="p">))</span>
+<span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.8&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">argo_df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">is2_pd_signal</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;lon_ph&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lat_ph&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">160</span><span class="p">,</span><span class="o">-</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="n">adjustable</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="c1"># Plot Zoomed View of Ground Tracks</span>
+<span class="n">argo_df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">is2_pd_signal</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;lon_ph&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lat_ph&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">-</span><span class="mf">151.98956</span><span class="p">,</span> <span class="mf">34.43885</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">lons</span><span class="p">)</span> <span class="o">-</span> <span class="n">lon_margin</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">lons</span><span class="p">)</span> <span class="o">+</span> <span class="n">lon_margin</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">lats</span><span class="p">)</span> <span class="o">-</span> <span class="n">lat_margin</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">lats</span><span class="p">)</span> <span class="o">+</span> <span class="n">lat_margin</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="n">adjustable</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="c1"># Plot ICESat-2 along-track vertical profile. A dotted line notes the location of a nearby Argo float</span>
+<span class="n">is2</span> <span class="o">=</span> <span class="n">ax3</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">is2_pd_signal</span><span class="p">[</span><span class="s1">&#39;lat_ph&#39;</span><span class="p">],</span> <span class="n">is2_pd_signal</span><span class="p">[</span><span class="s1">&#39;h_ph&#39;</span><span class="p">]</span><span class="o">+</span><span class="mf">13.1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">34.43885</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mf">34.3</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">])</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Approx. IS-2 Depth [m]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s1">&#39;15&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;-5&#39;</span><span class="p">])</span>
+
+<span class="c1"># Plot vertical ocean profile of the nearby Argo float</span>
+<span class="n">argo_df</span><span class="p">[</span><span class="n">argo_df</span><span class="p">[</span><span class="s1">&#39;profile_id&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;4903409_053&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pressure&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Temperature [$\degree$C]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Argo Pressure&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="fourpanel" src="../../_images/four_panel_plot.PNG" /></p>
+</section>
+</section>
+<section id="wrap-up">
+<h2>Wrap-Up<a class="headerlink" href="#wrap-up" title="Permalink to this heading">#</a></h2>
+<p>In this notebook, we demonstrated that, thanks to icepyx and QUEST, it is easy to access ICESat-2 and Argo data simultaneously. Because ICESat-2 and Argo both have the capabilities to offer near real-time, vertically-resolved subsurface information of the world’s oceans, the QUEST module will be helpful for the continued monitoring of ocean biology and biogeochemistry.</p>
+<p>Although we highlight Argo data in this presentation, the QUEST framework is designed to easily add other datasets to compliment ICESat-2 or Argo. We hope to expand the capabilities of QUEST with the help of the broader scientific community. Please get in touch and tell us about your dataset of interest!</p>
 </section>
 </section>
 
@@ -489,6 +777,24 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstract">Abstract</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-icepyx">What is icepyx?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-quest">What is QUEST?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#icesat-2-basics">ICESat-2 Basics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argo-basics">Argo Basics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quest-example">QUEST Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-query-object">Define the Query Object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-icesat-2-data">Getting the ICESat-2 data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-argo-data">Getting the Argo data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-the-data">Downloading the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-and-visualizing-the-data">Reading and Visualizing the Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-Up</a></li>
 </ul>
   </nav></div>
 
